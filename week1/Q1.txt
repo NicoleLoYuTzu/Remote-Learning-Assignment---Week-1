@@ -1,0 +1,20 @@
+1. Try the statements below in REPL. Please answer that there are correct or not and
+explain the reasons.
+a. val id = 9527
+對,這裡宣告id為不可變Int類型
+b. var number : Int = 5.6
+不對, Int是整數
+c. var title = "Hello Kotlin!"
+對, 宣告title為可變的String
+d. val content : String = null
+不對, String後面需加一個問號才可以接受初始直是null
+e. val number : Double? = 556.6
+對, Double是浮點數
+f. var list: List<String>? = listOf(null, null)
+不對,改為List<Nothing?>
+g. var list: List<String?>? = listOf("Wayne", "Chen")
+對, String字串
+h. list.size
+不對, 還要告訴kotlin如果null的話要做甚麼事
+i. list?.size
+對, 不論是有值還是null都可以run
