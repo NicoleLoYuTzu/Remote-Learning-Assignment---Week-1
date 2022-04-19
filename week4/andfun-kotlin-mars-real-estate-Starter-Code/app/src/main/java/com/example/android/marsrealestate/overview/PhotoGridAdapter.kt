@@ -17,9 +17,9 @@
 
 package com.example.android.marsrealestate.overview
 
+import android.app.Application
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.Transformations
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +40,13 @@ class PhotoGridAdapter :
         fun bind(marsProperty: MarsProperty) {
             binding.property = marsProperty
 
+            if(marsProperty.isRental){
+                binding.propertyTypeText.text = "For Rent"
+                binding.priceValueText.text= marsProperty.price.toString()+",.of.month"
+            }else{
+                binding.propertyTypeText.text = "For Sale"
+                binding.priceValueText.text= "For "+marsProperty.price.toString()+"s"
+            }
             binding.executePendingBindings()
         }
     }
@@ -75,9 +82,9 @@ class PhotoGridAdapter :
     }
 
     //8-15第七步 Create an OnClickListener class with a lambda in its constructor that initializes a
-    class OnClickListener(val clickListener: (marsProperty: MarsProperty) -> Unit) {
-        fun onClick(marsProperty: MarsProperty) = clickListener(marsProperty)
-    }
+//    class OnClickListener(val clickListener: (marsProperty: MarsProperty) -> Unit) {
+//        fun onClick(marsProperty: MarsProperty) = clickListener(marsProperty)
+//    }
 
 
 }

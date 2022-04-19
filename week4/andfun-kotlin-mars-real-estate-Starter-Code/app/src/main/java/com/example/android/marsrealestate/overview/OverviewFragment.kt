@@ -26,9 +26,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.marsrealestate.R
 import com.example.android.marsrealestate.databinding.FragmentOverviewBinding
 import com.example.android.marsrealestate.databinding.GridViewItemBinding
-import com.example.android.marsrealestate.detail.DetailFragmentArgs
-import com.example.android.marsrealestate.detail.DetailViewModel
-import com.example.android.marsrealestate.detail.DetailViewModelFactory
 import com.example.android.marsrealestate.network.MarsApiFilter
 
 /**
@@ -41,7 +38,6 @@ class OverviewFragment : Fragment() {
      */
     private val viewModel: OverviewViewModel by lazy {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
-
     }
 
     /**
@@ -55,21 +51,13 @@ class OverviewFragment : Fragment() {
         //8-11第十步 Switch to inflating GridViewItemBinding
 //        val binding = GridViewItemBinding.inflate(inflater)
         //8-12第四步 Switch to inflating FragmentOverviewBinding
-        val application = requireNotNull(activity).application
         val binding = FragmentOverviewBinding.inflate(inflater)
+
+        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
-        val marsProperty = DetailFragmentArgs.fromBundle(arguments!!).selectedProperty
-//
-        val viewModelFactory = OverviewViewModelFactory(marsProperty, application)
-
-        binding.viewModel = ViewModelProvider(
-                this, viewModelFactory).get(OverviewViewModel::class.java)
-//         Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-
-
         // Giving the binding access to the OverviewViewModel
-//        binding.viewModel = viewModel
+        binding.viewModel = viewModel
 
         //8-12第十二步 Set binding.photosGrid.adapter to a new PhotoGridAdapter()
         binding.photosGrid.adapter = PhotoGridAdapter()
@@ -85,7 +73,6 @@ class OverviewFragment : Fragment() {
 //                viewModel.displayPropertyDetailsComplete()
 //            }
 //        })
-
 
         setHasOptionsMenu(true)
         return binding.root

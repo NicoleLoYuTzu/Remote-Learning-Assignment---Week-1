@@ -26,13 +26,11 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="com.example.android.marsrealestate.overview.OverviewFragment"
-        android:label="fragment_overview">
+        android:label="fragment_overview"
+        tools:layout="@layout/fragment_overview" >
         <action
             android:id="@+id/action_showDetail"
             app:destination="@id/detailFragment" />
-        <argument
-            android:name="selecteProperty"
-            app:argType="com.example.android.marsrealestate.network.MarsProperty" />
     </fragment>
 
     <fragment

@@ -17,9 +17,9 @@
 
 package com.example.android.marsrealestate.overview
 
-import android.app.Application
-import androidx.lifecycle.*
-import com.example.android.marsrealestate.R
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.android.marsrealestate.network.MarsApi
 import com.example.android.marsrealestate.network.MarsApiFilter
 import com.example.android.marsrealestate.network.MarsProperty
@@ -35,7 +35,7 @@ enum class MarsApiStatus { LOADING, ERROR, DONE }
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
-class OverviewViewModel(marsProperty: MarsProperty,app: Application) : AndroidViewModel(app) {
+class OverviewViewModel : ViewModel() {
 
     // The internal MutableLiveData String that stores the status of the most recent request
 //    private val _response = MutableLiveData<String>()
@@ -55,37 +55,10 @@ class OverviewViewModel(marsProperty: MarsProperty,app: Application) : AndroidVi
     val properties : LiveData<List<MarsProperty>>
         get() = _properties
 
-    private val _selectedProperty = MutableLiveData<MarsProperty>()
-    val selectedProperty: LiveData<MarsProperty>
-        get() = _selectedProperty
-
-    init {
-        _selectedProperty.value = marsProperty
-    }
-
-    val displayPropertyType = Transformations.map(selectedProperty) {
-        app.applicationContext.getString(R.string.display_type,
-                app.applicationContext.getString(
-                        when(it.isRental) {
-                            true -> R.string.type_rent
-                            false -> R.string.type_sale
-                        }))
-    }
-
-    val displayPropertyPrice = Transformations.map(selectedProperty) {
-        app.applicationContext.getString(
-                when (it.isRental) {
-                    true -> R.string.display_price_monthly_rental
-                    false -> R.string.display_price
-                }, it.price
-        )
-    }
-
-
     //8-15第五步 Add a _navigateToSelectedProperty MutableLiveData externalized as LiveData
-    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
-    val navigateToSelectedProperty : LiveData<MarsProperty>
-        get() = _navigateToSelectedProperty
+//    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
+//    val navigateToSelectedProperty : LiveData<MarsProperty>
+//        get() = _navigateToSelectedProperty
 
     // The external immutable LiveData for the request status String
 //    val response: LiveData<String>
@@ -164,16 +137,15 @@ class OverviewViewModel(marsProperty: MarsProperty,app: Application) : AndroidVi
     }
 
     //8-15第六步 Add displayPropertyDetails and displayPropertyDetailsComplete methods
-    fun displayPropertyDetails(marsProperty: MarsProperty) {
-        _navigateToSelectedProperty.value = marsProperty
-    }
-    fun displayPropertyDetailsComplete() {
-        _navigateToSelectedProperty.value = null
-    }
+//    fun displayPropertyDetails(marsProperty: MarsProperty) {
+//        _navigateToSelectedProperty.value = marsProperty
+//    }
+//    fun displayPropertyDetailsComplete() {
+//        _navigateToSelectedProperty.value = null
+//    }
 
     //8-16第六步 Add updateFilter method that takes a filter input and re_gets(更新) the properties
     fun updateFilter(filter: MarsApiFilter) {
         getMarsRealEstateProperties(filter)
     }
-
 }
